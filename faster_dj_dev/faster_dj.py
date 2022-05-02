@@ -44,7 +44,7 @@ config = data.get_config_data()
 @click.option("--run-server",  "-rs",  is_flag=True,  help="Run the local server.")
 @click.option("--install","-i",multiple=True,type=click.Choice([
     "djangorestframework", "django-cors-headers", "crispy-tailwind","django-unicorn", "tailwind", "django-htmx", "django-dbbackup", "django-cron",
-    "ckeditor", "taggit"
+    "ckeditor", "taggit", "hitcount"
     ],  case_sensitive=False),help="Install Django package.")
 @click.option("--backup-absolute-path", "-bap", type=str, help="specify the absolute path of the backup folder.")
 @click.option("--backup-every-mins", "-bem", type=str, help="Backup database every X minutes.", default="10080", show_default=True)
