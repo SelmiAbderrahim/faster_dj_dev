@@ -6,6 +6,17 @@ from termcolor import colored
 from colorama import init
 init()
 
+django_hitcount_help_text = """\n
+\n\n============ DJANGO HITCOUNT USAGE ===========
+from hitcount.views import HitCountDetailView
+
+class PostCountHitDetailView(HitCountDetailView):
+    model = Post        # your model goes here
+    count_hit = True    # set to True if you want it to try and count the hit
+Docs URL:\t{colored("https://django-hitcount.readthedocs.io/en/latest/installation.html", "green")}
+==================================\n\n
+"""
+
 
 django_taggit_help_text = f"""\n
 \n\n============ DJANGO TAGGIT USAGE ===========

@@ -243,3 +243,8 @@ class Django:
             util.update_installed_apps_list(value="taggit")
             subprocess.run("python manage.py migrate", shell=True)
             print(django_taggit_help_text)
+
+        if "hitcount" in package_list:
+            venv.install_python_package("django-hitcount")
+            util.update_installed_apps_list(value="hitcount")
+            print(django_hitcount_help_text)
