@@ -7,6 +7,20 @@ from colorama import init
 init()
 
 
+django_taggit_help_text = f"""\n
+\n\n============ DJANGO TAGGIT USAGE ===========
+from django.db import models
+
+from taggit.managers import TaggableManager
+
+class Food(models.Model):
+    # ... fields here
+
+    tags = TaggableManager()
+Docs URL:\t{colored("https://django-taggit.readthedocs.io/en/latest/getting_started.html", "green")}
+==================================\n\n
+"""
+
 django_unicorn_help_text = f"""\n
 \n\n============ DJANGO UNICORN USAGE ===========
 {django_unicorn_base_html}

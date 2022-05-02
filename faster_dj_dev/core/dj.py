@@ -226,7 +226,7 @@ class Django:
             if "DEBUG = True" in settings:
                 settings = settings.replace("DEBUG = True", "DEBUG = False")
                 util.update_file_content(settings_file_path, settings)
-                subprocess.run("python manage.py collectstatic")
+                subprocess.run("python manage.py collectstatic", shell=True)
                 settings = settings.replace("DEBUG = False", "DEBUG = True")
                 debug_found = True
             util.update_file_content(settings_file_path, settings)
@@ -236,3 +236,10 @@ class Django:
             print(ckeditor_help_text)
             if not debug_found:
                 print(colored("[REQUIRED]\n", "red")+"\n\nPlease udpate DEBUG to False and run:\npython manage.py collectstatic\n\n")
+
+
+        if "taggit" in package_list:
+            venv.install_python_package("django-taggit")
+            util.update_installed_apps_list(value="taggit")
+            subprocess.run("python manage.py migrate", shell=True)
+            print(django_taggit_help_text)
