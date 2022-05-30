@@ -7,19 +7,19 @@ from colorama import init
 init()
 
 django_hitcount_help_text = """\n
-\n\n============ DJANGO HITCOUNT USAGE ===========
+ DJANGO HITCOUNT USAGE 
 from hitcount.views import HitCountDetailView
 
 class PostCountHitDetailView(HitCountDetailView):
     model = Post        # your model goes here
     count_hit = True    # set to True if you want it to try and count the hit
-Docs URL:\t{colored("https://django-hitcount.readthedocs.io/en/latest/installation.html", "green")}
-==================================\n\n
+Docs URL: https://django-hitcount.readthedocs.io/en/latest/installation.html
+
 """
 
 
 django_taggit_help_text = f"""\n
-\n\n============ DJANGO TAGGIT USAGE ===========
+ DJANGO TAGGIT USAGE 
 from django.db import models
 
 from taggit.managers import TaggableManager
@@ -28,44 +28,44 @@ class Food(models.Model):
     # ... fields here
 
     tags = TaggableManager()
-Docs URL:\t{colored("https://django-taggit.readthedocs.io/en/latest/getting_started.html", "green")}
-==================================\n\n
+Docs URL: https://django-taggit.readthedocs.io/en/latest/getting_started.html
+
 """
 
 django_unicorn_help_text = f"""\n
-\n\n============ DJANGO UNICORN USAGE ===========
+ DJANGO UNICORN USAGE 
 {django_unicorn_base_html}
-Docs URL:\t{colored("https://www.django-unicorn.com/docs","green")}
-\n\n=======================================\n\n
+Docs URL: https://www.django-unicorn.com/docs
+
 """
 
 django_tailwind_help_text = f"""\n
-\n\n============ DJANGO TAILWIND USAGE ===========
+ DJANGO TAILWIND USAGE 
 {django_tailwind_base_html}
-Docs URL:\t{colored("https://django-tailwind.readthedocs.io/en/latest/installation.html", "green")}
-\n\n=======================================\n\n
+Docs URL: https://django-tailwind.readthedocs.io/en/latest/installation.html
+
 """
 
 django_htmx_help_text = f"""\n
-\n============ DJANGO HTMX USAGE ===========
+\n= DJANGO HTMX USAGE 
 {django_htmx_base_html}
-Docs URL:\t{colored("https://django-htmx.readthedocs.io/en/latest/installation.html", "green")}
-\n\n=======================================\n\n
+Docs URL: https://django-htmx.readthedocs.io/en/latest/installation.html
+
 """
 
 django_tailwind_crispy_help_text = """\n
-\n============ DJANGO TAILWIND CRISPY USAGE ===========")
+\n= DJANGO TAILWIND CRISPY USAGE ")
 Current functionality allows the |crispy filter to be used to style your form. In your template:
 
     Load the filter: {% load tailwind_filters %}
     Apply the crispy filter: {{ form|crispy }}
-Docs URL:\thttps://github.com/django-crispy-forms/crispy-tailwind
-\n\n=======================================\n\n
+Docs URL: https://github.com/django-crispy-forms/crispy-tailwind
+
 """
 
 
 ckeditor_help_text = f"""\n
-\n\n=======================================\n\n
+
 Usage
 Field
 
@@ -101,6 +101,6 @@ admin.site.register(Post, PostAdmin)
 
 For file upload support use CKEditorUploadingWidget from ckeditor_uploader.widgets.
 
-Docs URL:\t{colored("https://github.com/django-ckeditor/django-ckeditor", "green")}
-\n\n=======================================\n\n
+Docs URL: https://github.com/django-ckeditor/django-ckeditor
+
 """

@@ -1,4 +1,4 @@
-import platform, re, sys, os, json, logging, pathlib
+import platform, re, sys, os, json, logging, pathlib, subprocess
 from termcolor import colored
 from colorama import init
 init()
@@ -257,3 +257,21 @@ class Util:
         elif "'DIRS': []" in settings:
             settings = settings.replace("'DIRS': []", "'DIRS': [BASE_DIR / 'templates']")
         self.update_file_content(settings_file_path, settings)
+
+
+    def check_node_installed_version(self):
+        node_version = subprocess.check_output(["node", "-v"]).decode("utf-8").strip()
+        node_version_regex_pattern = r"v(\d+\.\d+\.\d+)"
+        if re.search(node_version_regex_pattern, node_version):
+            return True
+        else:
+            return False
+
+    def save_usage_instructions(self, filename, instructions):
+        working_directory = data.get_working_directory_path_from_config_data()
+        usage_folder = os.path.join(working_directory, "usage")
+        if not os.path.isdir(usage_folder):
+            os.mkdir(usage_folder)
+        with open(os.path.join(usage_folder, filename), "w") as f:
+            f.write(instructions)
+            print(colored(f"[+] Usage instructions for {filename} saved in 'usage' folder.", "green"))

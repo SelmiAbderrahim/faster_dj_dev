@@ -21,6 +21,7 @@ except ImportError:
     from codebase.instructions import *
     from codebase.python_code_base import *
 
+
 # INITIAL 
 venv = Venv()
 util = Util()
@@ -61,6 +62,7 @@ class Django:
             os.mkdir("templates")
             print("[+]\tCreating templates folder ... \n")
         util.update_template_dirs()
+        print("[+]\tConfiguring templates ... \n")
 
 
     def config_django_static(self):
@@ -78,6 +80,7 @@ class Django:
         settings = util.get_file_content(settings_file_path)
         if not "STATIC_ROOT" in settings:
             util.add_to_the_bottom_of_the_file(settings_file_path, django_static_settings)
+        print("[+]\tConfiguring static files ... \n")
         
 
     def config_django_media(self):
@@ -98,6 +101,7 @@ class Django:
             print("[+]\tCreating media folder ... \n")
         if "MEDIA_ROOT" not in settings:
             util.add_to_the_bottom_of_the_file(settings_file_path, django_media_settings)
+        print("[+]\tConfiguring media files ... \n")
 
         
     def initial_migrate(self):        
@@ -169,10 +173,12 @@ class Django:
             venv.install_python_package("django-unicorn")
             util.update_installed_apps_list(value="django_unicorn")
             util.update_urlpatterns_list(value="path(\"unicorn/\", include(\"django_unicorn.urls\"))")
-            print(django_unicorn_help_text)
+            util.save_usage_instructions("django_unicorn.txt", django_unicorn_help_text)
 
 
         if "tailwind" in package_list:
+            if not util.check_node_installed_version():
+                print(colored("X", "red") + " Node.js is not installed. Please install node.js first.")
             venv.install_python_package("django-tailwind") 
             util.update_installed_apps_list(value='tailwind')
             subprocess.run("python manage.py tailwind init", shell=True)
@@ -184,14 +190,14 @@ class Django:
             util.update_installed_apps_list(value='django_browser_reload')
             util.update_middleware_list(value="django_browser_reload.middleware.BrowserReloadMiddleware")
             util.update_urlpatterns_list(value="path('__reload__/', include('django_browser_reload.urls'))")
-            print(django_tailwind_help_text)
+            util.save_usage_instructions("tailwind.txt", django_tailwind_help_text)
 
 
         if "django-htmx" in package_list:
             venv.install_python_package("django-htmx")
             util.update_installed_apps_list("django_htmx")
             #util.add_to_the_bottom_of_the_file(settings_file_path, "\n\n#DJANGO HTMX\nCRISPY_ALLOWED_TEMPLATE_PACKS = 'tailwind'\nCRISPY_TEMPLATE_PACK = 'tailwind'")
-            print(django_htmx_help_text)
+            util.save_usage_instructions("django_htmx.txt", django_htmx_help_text)
 
 
         if "crispy-tailwind" in package_list:
@@ -199,7 +205,7 @@ class Django:
             util.update_installed_apps_list("crispy_forms"),
             util.update_installed_apps_list("crispy_tailwind"),
             util.add_to_the_bottom_of_the_file(settings_file_path, django_tailwind_crispy_settings)
-            print(django_tailwind_crispy_help_text)
+            util.save_usage_instructions("crispy_tailwind.txt", django_tailwind_crispy_help_text)
 
         if "django-dbbackup" in package_list:
             venv.install_python_package("https://github.com/mjs7231/django-dbbackup.git#egg=django-dbbackup", git=True)
@@ -233,7 +239,7 @@ class Django:
             util.update_installed_apps_list("ckeditor_uploader")
             util.add_to_the_bottom_of_the_file(filename=settings_file_path, string_to_add=ckeditor_settings)
             util.update_urlpatterns_list(value="path('ckeditor/', include('ckeditor_uploader.urls'))")
-            print(ckeditor_help_text)
+            util.save_usage_instructions("ckeditor.txt", ckeditor_help_text)
             if not debug_found:
                 print(colored("[REQUIRED]\n", "red")+"\n\nPlease udpate DEBUG to False and run:\npython manage.py collectstatic\n\n")
 
@@ -242,9 +248,9 @@ class Django:
             venv.install_python_package("django-taggit")
             util.update_installed_apps_list(value="taggit")
             subprocess.run("python manage.py migrate", shell=True)
-            print(django_taggit_help_text)
+            util.save_usage_instructions("taggit.txt", django_taggit_help_text)
 
         if "hitcount" in package_list:
             venv.install_python_package("django-hitcount")
             util.update_installed_apps_list(value="hitcount")
-            print(django_hitcount_help_text)
+            subprocess.call(f"{django_hitcount_help_text} > hitcount.md", shell=True)
