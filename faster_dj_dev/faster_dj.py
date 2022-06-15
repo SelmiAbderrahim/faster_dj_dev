@@ -75,7 +75,8 @@ def main(create_project, app, config_templates, config_static, config_media,
                 if util.check_folder_path_validity(working_directory):
                     data.update_data_config(key="working_directory", value=working_directory)
                     data.update_data_config(key="project_folder", value=project_folder)
-                    print(colored("\n[+] ", "green")+"project initialized.\n")
+                    if util.test(working_directory, project_folder):
+                        print(colored("\n[+] ", "green")+"project initialized.\n")
                 else:
                     print(colored("X ", "red", attrs=["bold"])+ f"{working_directory} doesn't exist!")
             else:

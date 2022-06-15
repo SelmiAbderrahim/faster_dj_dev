@@ -79,8 +79,6 @@ class Util:
                 file.write(string_to_add+"\n"+content)
 
 
-    # get_list_from_settings_file(name="installed_apps_list", pattern=r"(?=INSTALLED_APPS).+(?=MIDDLEWARE)", index="INSTALLED_APPS = ", return_string=False)
-    # get_list_from_settings_file(name="middleware_list", pattern=r"(?=MIDDLEWARE).+(?=MIDDLEWARE)", index="MIDDLEWARE = ", return_string=False)
     def get_list_from_settings_file(self, name="", pattern=r"", index="", return_string=False):
         working_directory = data.get_working_directory_path_from_config_data()
         project_name = data.get_project_path_from_config_data()
@@ -275,3 +273,28 @@ class Util:
         with open(os.path.join(usage_folder, filename), "w") as f:
             f.write(instructions)
             print(colored(f"[+] Usage instructions for {filename} saved in 'usage' folder.", "green"))
+
+
+    # Check if everything could work without any issue
+    def test(self, working_directory, project_name):
+        try:
+            project_path = os.path.join(working_directory, project_name)
+            if os.path.isdir(project_path):
+                # list all python files in the working_directory
+                # os walk
+                for root, dirs, files in os.walk(project_path):
+                    for file in files:
+                        if file.endswith(".py"):
+                            file_path = os.path.join(root, file)
+                            self.reformat_python_file(file_path)
+                installed_apps_list = self.get_list_from_settings_file(
+                    name="installed_apps_list",
+                    pattern=r"(?=INSTALLED_APPS).+(?=MIDDLEWARE)",
+                    index="INSTALLED_APPS = ",
+                    return_string=False
+                    )
+                urls_file_path = os.path.join(project_path, "urls.py")
+                return True
+        except Exception as error:
+            logging.critical(f"{error}")
+            sys.exit(colored("[!] Test Failed ","red", attrs=["bold",])+f"This might not work properly on your project.\nDetails:  {error}")
