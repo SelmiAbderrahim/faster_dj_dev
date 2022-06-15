@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name='faster_dj_dev',
-    version='0.1.6',
+    version='0.1.7',
     author='Selmi Abderrahim',
     author_email='contact@selmi.tech',
     description='A tool that makes your Django development faster.',
